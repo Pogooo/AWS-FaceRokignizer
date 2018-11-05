@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <title>RealEyes Homework</title>
+  <meta charset="UTF-8">
+
+  <!-- Angular Library -->
+  <script src="/node_modules/angular/angular.js"></script>
+  <script src="/node_modules/angular-animate/angular-animate.min.js"></script>
+  <script src="/node_modules/angular-aria/angular-aria.min.js"></script>
+  <script src="/node_modules/angular-messages/angular-messages.min.js"></script>
+  <!-- <script src="/node_modules/angular-ui-router/release/angular-ui-router.min.js"></script> -->
+
+  <!-- Angular Material Library -->
+  <script src="/node_modules/angular-material/angular-material.min.js"></script>
+  <link rel="stylesheet" href="/node_modules/angular-material/angular-material.min.css">
+
+  <!-- Application initialization -->
+  <script src="/js/app.js"></script>
+  <script src="/js/controllers.js"></script>
+  <script src="/js/services.js"></script>
+
+  <!-- Own stylesheets -->
+  <link rel="stylesheet" href="/css/main.css" />
+
+  <!-- RealEyes libs -->
+  <script src="/node_modules/@realeyes/environment-detector/dist/environment-detector.js"></script>
+
+  <script src="/node_modules/webrtc-adapter/out/dist/adapter.js"></script>
+
+  <!-- The easiest way -->
+  <!-- https://jonas.hartmann.site/webcam-directive/#/ -->
+</head>
+<body ng-app="myApp" ng-controller="MainpageCtrller">
+
+  <div layout="column" flex-gt-sm="80" class="align-center">
+    <!-- HEADER -->
+    <div class="align-center">
+      <h1>RealEyes Face recognizer</h1>
+    </div>
+    <!-- HEADER END -->
+
+    <!-- CONTENT -->
+    <div class="align-center">
+      <h1>Hello there!</h1>
+
+      <div id="video-allowed" ng-show="webcamEnabled">
+
+        <video autoplay="true" id="videoElement" width="<% videoWidth %>" height="<% videoHeight %>"></video>
+
+        <div layout="column" layout-align="center center">
+          <md-checkbox ng-model="requireHat" aria-label="Random hat">
+              Who is the One? 
+          </md-checkbox>
+          <md-button class="md-raised md-primary" ng-click="recognize()">Recognize</md-button>
+        </div>
+
+        <div id="captured" ng-show="captured">
+          <canvas id="canvas" width="<% videoWidth %>" height="<% videoHeight %>"></canvas>
+        </div>
+
+        <div ng-repeat="face in facesOnImage">
+          The face in the <span style="color: <% boundaryColors[$index] %>"><% boundaryColors[$index] %></span> colored frame has:
+          <ul>
+            <li>
+              Age: <% face.AgeRange.Low %> - <% face.AgeRange.High %> <span class="confidence"><% face.AgeRange.Confidence %></span>
+            </li>
+
+            <ul id="emotions">
+              Emotions
+              <li ng-repeat="emotion in face.Emotions">
+                <% emotion.Type.Value %> <span class="confidence"><% emotion.Confidence %></span>
+              </li>
+            </ul>
+
+            <li>
+                Beard: <% face.Beard.Value %> <span class="confidence"><% face.Beard.Confidence %></span>
+            </li>
+
+            <li>
+                Gender: <% face.Gender.Value.Value %> <span class="confidence"><% face.Gender.Confidence %></span>
+            </li>
+
+            <li>
+              Eyes Open: <% face.EyesOpen.Value %> <span class="confidence"><% face.EyesOpen.Confidence %></span>
+            </li>
+            
+            <li>
+                Mouth Open: <% face.MouthOpen.Value %> <span class="confidence"><% face.MouthOpen.Confidence %></span>
+            </li>
+
+            <li>
+                Mustache: <% face.Mustache.Value %> <span class="confidence"><% face.Mustache.Confidence %></span>
+            </li>
+
+            <li>
+                Smile: <% face.Smile.Value %> <span class="confidence"><% face.Smile.Confidence %></span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <img id="hat" style="display: none" src="css/images/hat1.png" alt="Partyhat. no, I just have not found better on Google">
+    <!-- CONTENT END -->
+
+    <!-- FOOTER -->
+    <center>
+      RealEyes Demo <br />
+      <i>from Viktor Levente Tóth</i>
+    </center>
+    <!-- FOOTER END -->
+
+  </div>
+
+</body>
+</html>

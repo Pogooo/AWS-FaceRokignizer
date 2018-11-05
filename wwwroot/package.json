@@ -4,10 +4,11 @@
   "description": "Demo for RealEyes comp.",
   "main": "index.html",
   "dependencies": {
+    "@realeyes/environment-detector": "^2.0.13",
     "angular": "^1.7.5",
-    "angular-material": "^1.1.10",
-    "angular-aria": "^1.7.5",
     "angular-animate": "^1.7.5",
+    "angular-aria": "^1.7.5",
+    "angular-material": "^1.1.10",
     "angular-messages": "^1.7.5",
     "angular-ui-router": "^1.0.20",
     "webrtc-adapter": "^6.4.4"
